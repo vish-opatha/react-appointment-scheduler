@@ -1,5 +1,6 @@
 import { BiSearch, BiCaretDown, BiCheck } from "react-icons/bi"
 
+// ******* Dropdown sub-component ********
 const Dropdown = () =>{
     return(
         <div className="origin-top-right absolute right-0 mt-2 w-56
@@ -26,7 +27,7 @@ const Dropdown = () =>{
 
 }
 
-
+// ******** Search Component ********
 const Search = () => {
   return (
     <div className="py-5">
