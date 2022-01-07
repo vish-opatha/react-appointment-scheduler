@@ -1,12 +1,14 @@
-import {GoAlert} from "react-icons/go"
+import {BiCalendar} from "react-icons/bi"
 import Search from "./components/Search"
+import AddAppointment from "./components/AddAppointment";
 
 function App() {
   return (
     <div className="App container mx-auto mt-3 font-thin">
       <h1 className="text-5xl content-center">
-        <GoAlert className="inline-block text-blue-800 align-top"/>Appointment Scheduler
+        <BiCalendar className="inline-block text-blue-800 align-top pr-3"/>Appointment Scheduler
       </h1>
+      <AddAppointment/>
       <Search/>
     </div>
   );
