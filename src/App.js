@@ -2,6 +2,7 @@ import { BiCalendar} from "react-icons/bi"
 import Search from "./components/Search"
 import AddAppointment from "./components/AddAppointment"
 import AppointmentData from "./data.json"
+import AppointmentInfo from "./components/AppointmentInfo"
 
 function App() {
   return (
@@ -14,8 +15,7 @@ function App() {
       <ul>
         {AppointmentData
         .map(appt=>(
-         
-
+          <AppointmentInfo key={appt.id} appt={appt}/>
         ))
         
         
