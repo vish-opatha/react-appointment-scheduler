@@ -1,6 +1,10 @@
 import { BiCalendarPlus } from 'react-icons/bi'
+import { useState } from 'react'
 
 const AddAppointment = () =>{
+    // Setting initial values and methods to toggleForm useState
+    let [toggleForm, setToggleForm] = useState(false)
+
     return (
         <div>
             <button className="bg-blue-400 text-white px-2 py-3 w-full text-left rounded-t-md mt-3">
@@ -33,7 +37,7 @@ const AddAppointment = () =>{
                         Apt Date
                     </label>
                     <div className="mt-1 sm:mt-0 sm:col-span-2">
-                        <input type="date" name="aptDate" id="aptDate"
+                        <input type="date " name="aptDate" id="aptDate"
                         className="max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md" />
                     </div>
                 </div>
