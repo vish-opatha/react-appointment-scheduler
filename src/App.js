@@ -6,6 +6,7 @@ import AppointmentInfo from "./components/AppointmentInfo"
 
 function App() {
   let [appointmentData, setAppointmentData] = useState([]);
+  let [query, setQuery] = useState("");
 
   const fetchAppointmentData = useCallback(() => {
     fetch('./data.json')
@@ -26,7 +27,8 @@ function App() {
         <BiCalendar className="inline-block text-blue-800 align-top pr-3"/>Appointment Scheduler
       </h1>
       <AddAppointment/>
-      <Search/>
+      <Search query={query} 
+        onQueryChange={myQuery => setQuery(myQuery)}/>
 
       <ul className="divide-y divide-gray-200" >
         {appointmentData
@@ -37,7 +39,7 @@ function App() {
               appointmentId=>
               setAppointmentData(appointmentData.filter(appointment => appointment.id!==appointmentId))}/>
         ))
-        }
+      }
       </ul>
     </div>
   );
