@@ -22,15 +22,20 @@ function App() {
 
   return (
     <div className="App container mx-auto mt-3 font-thin">
-      <h1 className="text-5xl content-center">
+      <h1 className="text-5xl mb-3">
         <BiCalendar className="inline-block text-blue-800 align-top pr-3"/>Appointment Scheduler
       </h1>
       <AddAppointment/>
       <Search/>
-      <ul>
+
+      <ul className="divide-y divide-gray-200" >
         {appointmentData
-        .map(appt=>(
-          <AppointmentInfo key={appt.id} appt={appt}/>
+        .map(appointment => (
+          <AppointmentInfo key={appointment.id} 
+            appt={appointment}
+            onDeleteAppointement={
+              appointmentId=>
+              setAppointmentData(appointmentData.filter(appointment => appointment.id!==appointmentId))}/>
         ))
         }
       </ul>
