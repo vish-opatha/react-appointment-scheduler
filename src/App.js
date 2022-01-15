@@ -8,6 +8,16 @@ function App() {
   let [appointmentData, setAppointmentData] = useState([]);
   let [query, setQuery] = useState("");
 
+  const filteredAppt = appointmentData.filter(
+    item=>{
+      return(
+        item.petName.toLowerCase().includes(query.toLowerCase()) ||
+        item.ownerName.toLowerCase().includes(query.toLowerCase()) ||
+        item.aptNotes.toLowerCase().includes(query.toLowerCase()) 
+      )
+    }
+  )
+
   const fetchAppointmentData = useCallback(() => {
     fetch('./data.json')
       .then(response => response.json())
@@ -31,7 +41,7 @@ function App() {
         onQueryChange={myQuery => setQuery(myQuery)}/>
 
       <ul className="divide-y divide-gray-200" >
-        {appointmentData
+        {filteredAppt
         .map(appointment => (
           <AppointmentInfo key={appointment.id} 
             appt={appointment}
