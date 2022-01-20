@@ -44,7 +44,10 @@ function App() {
       <h1 className="text-5xl mb-3">
         <BiCalendar className="inline-block text-blue-800 align-top pr-3"/>Appointment Scheduler
       </h1>
-      <AddAppointment/>
+      <AddAppointment 
+        onSaveNewAppointment={myAppointment =>{setAppointmentData([...appointmentData, myAppointment])}}
+      />
+      
       <Search query={query} 
         onQueryChange={myQuery => setQuery(myQuery)}
         orderBy={orderBy}

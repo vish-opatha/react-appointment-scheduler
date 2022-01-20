@@ -1,15 +1,42 @@
 import { BiCalendarPlus } from 'react-icons/bi'
 import { useState } from 'react'
+import { v4 as uuidv4 } from 'uuid';
 
-const AddAppointment = () =>{
+const AddAppointment = ({onSaveNewAppointment}) =>{
+    const emptyFormData = {
+        ownerName:'',
+        petName:'',
+        aptDate:'',
+        aptTime:'',
+        aptNotes:''
+    }
+
     // Setting initial values and methods to toggleForm useState
     let [toggleForm, setToggleForm] = useState(false)
+
+    // Setting initial values and methods to add a new appointment using state
+    let [formData, setFormData] = useState(emptyFormData)
+
+    // Function to save the new appointment
+    function saveAppointment(){
+        const newAppointment = {
+            id: uuidv4(),
+            ownerName: formData.ownerName,
+            petName: formData.petName,
+            aptDate: formData.aptDate+ formData.aptTime,
+            aptNotes: formData.aptNotes
+        }
+
+        onSaveNewAppointment(newAppointment);
+        setFormData(emptyFormData);
+        setToggleForm(!toggleForm);
+    }
 
     return (
         <div>
             <button onClick={() => {setToggleForm(!toggleForm)}} 
                 className={`bg-blue-400 text-white px-2 py-3 w-full text-left rounded-t-md mt-3 ${toggleForm ? 'rounded-t-md': 'rounded-md'}`}>
-                <div><BiCalendarPlus className="inline-block align-text-top" />  Add Appointment</div>
+                <div><BiCalendarPlus className="inline-block align-text-top" /> Add Appointment </div>
             </button>
             {
             toggleForm &&
@@ -20,7 +47,9 @@ const AddAppointment = () =>{
                 </label>
                 <div className="mt-1 sm:mt-0 sm:col-span-2">
                     <input type="text" name="ownerName" id="ownerName"
-                    className="max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md" />
+                    className="max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md" 
+                    onChange={(event) =>{setFormData({...formData, ownerName: event.target.value})}}
+                    value={formData.ownerName}/>
                 </div>
             </div>
 
@@ -30,7 +59,9 @@ const AddAppointment = () =>{
                 </label>
                 <div className="mt-1 sm:mt-0 sm:col-span-2">
                     <input type="text" name="petName" id="petName"
-                    className="max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md" />
+                    className="max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md" 
+                    onChange={(event) =>{setFormData({...formData, petName:event.target.value})}}
+                    value={formData.petName}/>
                 </div>
             </div>
 
@@ -39,8 +70,10 @@ const AddAppointment = () =>{
                     Apt Date
                 </label>
                 <div className="mt-1 sm:mt-0 sm:col-span-2">
-                    <input type="date " name="aptDate" id="aptDate"
-                    className="max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md" />
+                    <input type="date" name="aptDate" id="aptDate"
+                    className="max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md" 
+                    onChange={(event) =>{setFormData({...formData,aptDate:event.target.value})}}
+                    value={formData.aptDate}/>
                 </div>
             </div>
 
@@ -50,7 +83,9 @@ const AddAppointment = () =>{
                 </label>
                 <div className="mt-1 sm:mt-0 sm:col-span-2">
                     <input type="time" name="aptTime" id="aptTime"
-                    className="max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md" />
+                    className="max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md" 
+                    onChange={(event) =>{setFormData({...formData,aptTime:event.target.value})}}
+                    value={formData.aptTime}/>
                 </div>
             </div>
 
@@ -60,13 +95,17 @@ const AddAppointment = () =>{
                 </label>
                 <div className="mt-1 sm:mt-0 sm:col-span-2">
                     <textarea id="aptNotes" name="aptNotes" rows="3"
+                    onChange={(event) =>{setFormData({...formData,aptNotes:event.target.value})}}
+                    value={formData.aptNotes}
                     className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border-gray-300 rounded-md" placeholder="Detailed comments about the condition"></textarea>
                 </div>
             </div>
 
             <div className="pt-5">
                 <div className="flex justify-end">
-                    <button type="submit" className="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-400 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-400">
+                    <button type="submit" 
+                    className="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-400 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-400"
+                    onClick={saveAppointment}>
                     Submit
                     </button>
                 </div>
